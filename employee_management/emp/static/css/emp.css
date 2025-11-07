@@ -1,0 +1,16 @@
+.btn-manage-emp {
+    text-decoration: none;
+    color: inherit;
+}
+
+.btn-manage-emp:focus,
+.btn-manage-emp:active,
+.btn-manage-emp:visited {
+    outline: none;
+    color: inherit;
+    box-shadow: none;
+}
+
+.btn-manage-emp:hover {
+    color: gray;
+}
