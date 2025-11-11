@@ -11,13 +11,19 @@ class EmployeeListView(ListView):
 
     def get_queryset(self):
         return Employee.objects.all().order_by('id')
+    
+
+def show_employee(request, id):
+    emp = Employee.objects.get(id=id)
+    departments = Department.objects.all()
+    return render(request, 'emp/update_emp.html', {'employee':emp, 'departments': departments})
 
 
-# ✅ Add new employee
 class EmployeeView(View):
 
     def get(self, request):
-        return render(request, 'emp/add_emp.html')
+        departments = Department.objects.all()
+        return render(request, 'emp/add_emp.html', {'departments': departments})
     
     def post(self, request):
 
@@ -26,24 +32,16 @@ class EmployeeView(View):
         salary = request.POST.get('salary')
         dept = request.POST.get('department')
         is_working = request.POST.get('isworking')
-        if is_working == 'on':
-            is_working = True
-        else:
-            is_working = False
+        is_working = True if is_working == 'on' else False
 
-        department, created = Department.objects.get_or_create(name=dept)
+        department = Department.objects.get(id=dept)
 
         Employee.objects.create(department=department, name=name, email=email, salary=salary, is_working=is_working)
         
-        return redirect('show_employees')
+        return redirect('show_employees')        
 
-
-def show_employee(request, id):
-    emp = Employee.objects.get(id=id)
-    return render(request, 'emp/update_emp.html', {'employee':emp})
 
 def update_employee(request, id):
-
     name = request.POST.get('name')
     email = request.POST.get('email')
     salary = request.POST.get('salary')
@@ -51,7 +49,7 @@ def update_employee(request, id):
     is_working = request.POST.get('isworking')
     is_working = True if is_working == 'on' else False
 
-    department, created = Department.objects.get_or_create(name=dept)
+    department, created = Department.objects.get_or_create(id=dept)
     emp = Employee.objects.get(pk=id)
     emp.name = name
     emp.email = email
@@ -63,10 +61,7 @@ def update_employee(request, id):
     return redirect('show_employees')
 
 def delete_employee(request, id):
-
     emp = Employee.objects.get(pk=id)
     emp.delete()
 
     return redirect('show_employees')
-
-
