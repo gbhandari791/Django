@@ -2,9 +2,12 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic import ListView, CreateView
 from .models import Employee, Department
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+from core.decorators import has_role
 
-# ✅ Show all employees
-class EmployeeListView(ListView):
+# Show all employees
+class EmployeeListView(LoginRequiredMixin ,ListView):
     model = Employee
     template_name = 'emp/show_emp.html'
     context_object_name = 'employees'
@@ -13,13 +16,14 @@ class EmployeeListView(ListView):
         return Employee.objects.all().order_by('id')
     
 
+@login_required
 def show_employee(request, id):
     emp = Employee.objects.get(id=id)
     departments = Department.objects.all()
     return render(request, 'emp/update_emp.html', {'employee':emp, 'departments': departments})
 
 
-class EmployeeView(View):
+class EmployeeView(LoginRequiredMixin ,View):
 
     def get(self, request):
         departments = Department.objects.all()
@@ -40,7 +44,7 @@ class EmployeeView(View):
         
         return redirect('show_employees')        
 
-
+@login_required
 def update_employee(request, id):
     name = request.POST.get('name')
     email = request.POST.get('email')
@@ -60,6 +64,8 @@ def update_employee(request, id):
 
     return redirect('show_employees')
 
+@login_required
+@has_role(['Admin'])
 def delete_employee(request, id):
     emp = Employee.objects.get(pk=id)
     emp.delete()

@@ -1,6 +1,14 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#" style="font-family: 'Poppins', sans-serif;font-weight: 700;color: rgb(16, 70, 221);" >Employee Management</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+{% load static %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
+
+  <a class="navbar-brand" href="#">
+    <img src="{% static 'img/emp_management_logo.png' %}" alt="emp-management"
+      style="height:40px; width:auto; margin: 0 30px; transform: scale(3); transform-origin: center;">
+  </a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
@@ -12,13 +20,14 @@
       </li>
 
       <li class="nav-item active">
-        <a class="nav-link" href="{% url 'add_employee' %}" >Add Employee</a>
+        <a class="nav-link" href="{% url 'add_employee' %}">Add Employee</a>
       </li>
 
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
+    <ul class="navbar-nav my-2 my-lg-0">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'logout' %}" style="color: red;">Logout</a>
+      </li>
+    </ul>
   </div>
 </nav>

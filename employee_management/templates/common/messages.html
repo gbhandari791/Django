@@ -1,0 +1,42 @@
+{% if messages %}
+  {% regroup messages by tags as grouped_messages %}
+
+  {% for group in grouped_messages %}
+    {% if group.grouper == 'error' %}
+      <div class="alert alert-danger">
+        <ul class="mb-0">
+          {% for msg in group.list %}
+            <li>{{ msg }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+    {% elif group.grouper == 'success' %}
+      <div class="alert alert-success">
+        <ul class="mb-0">
+          {% for msg in group.list %}
+            <li>{{ msg }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+    {% elif group.grouper == 'warning' %}
+      <div class="alert alert-warning">
+        <ul class="mb-0">
+          {% for msg in group.list %}
+            <li>{{ msg }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+    {% elif group.grouper == 'info' %}
+      <div class="alert alert-info">
+        <ul class="mb-0">
+          {% for msg in group.list %}
+            <li>{{ msg }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  {% endfor %}
+{% endif %}
