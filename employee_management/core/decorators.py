@@ -30,3 +30,8 @@ def has_role(roles):
             return view_func(request, *args, **kwargs)
         return wrapper
     return decorator
+
+
+
+
+

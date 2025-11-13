@@ -51,3 +51,6 @@ def logout_view(request):
     logout(request)  # This clears the session data
     messages.success(request, "You have been logged out successfully!")
     return redirect('login')  # Redirect back to login page
+
+
+
